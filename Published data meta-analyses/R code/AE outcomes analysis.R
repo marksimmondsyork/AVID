@@ -92,6 +92,7 @@ extract_MA_results <- function(ma.res){
                     RR.high=exp(ma.res$upper.random),
                     I2=ma.res$I2,
                     Ntrials=ma.res$k,
+                    Npats=sum(ma.res$n.e+ma.res$n.c),
                     Nevents=sum(ma.res$event.e+ma.res$event.c))
   return(out)
 }
@@ -109,8 +110,8 @@ pdata <- filter(AE.MA.PDR.summ) %>%
 tiff("Adverse event MA forest plot.tiff",width=1000, height=700,compression="lzw")
 forest(metagen(logRR,selogRR,sm="RR",data=pdata),
        studlab=Outcome,fixed=F,random=F,
-       leftcols=c("studlab","Ntrials","Nevents"),
-       leftlabs=c("Outcome","N. trials","N. events"),
+       leftcols=c("studlab","Ntrials","Npats","Nevents"),
+       leftlabs=c("Outcome","N. trials","N. patients","N. events"),
        xlab="Relative risk",smlab="Relative risk",
        hetstat=F,label.right="Favours PRP",label.left="Favours Anti-VEGF")
 dev.off()

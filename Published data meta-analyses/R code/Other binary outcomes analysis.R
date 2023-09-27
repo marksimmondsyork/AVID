@@ -71,7 +71,7 @@ outcomes.PDR <- outcomes.reduced %>%
   filter(!Trial %in% c("PANORAMA","PROTOCOL W"))
 
 onames <- colnames(outcomes.reduced[c(5,8,9,10)])
-onames.full <- c("Regression of Neovasc.","DME","Vitreous Haemorrhage","Vitrectomy")
+onames.full <- c("Regression of Neovasc.","DMO","Vitreous Haemorrhage","Vitrectomy")
 
 # ma function
 
@@ -93,6 +93,7 @@ extract_MA_results <- function(ma.res){
                     RR.high=exp(ma.res$upper.random),
                     I2=ma.res$I2,
                     Ntrials=ma.res$k,
+                    Npats=sum(ma.res$n.e+ma.res$n.c),
                     Nevents=sum(ma.res$event.e+ma.res$event.c))
   return(out)
 }
@@ -109,15 +110,10 @@ pdata <- filter(MA.res.summ,Ntrials>1)
 tiff("Other outcomes MA forest plot.tiff",width=1000, height=700, compression="lzw")
 forest(metagen(logRR,selogRR,sm="RR",data=pdata),
        studlab=Outcome,fixed=F,random=F,
-       leftcols=c("studlab","Ntrials","Nevents"),
-       leftlabs=c("Outcome","N. trials","N. events"),
+       leftcols=c("studlab","Ntrials","Npats","Nevents"),
+       leftlabs=c("Outcome","N. trials","N. patients","N. events"),
        xlab="Relative risk",smlab="Relative risk",
        hetstat=F,label.left="Favours anti-VEGF",label.right="Favours PRP")
 dev.off()
 
 
-
-
-
-
-M

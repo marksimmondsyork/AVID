@@ -23,7 +23,7 @@ NMA.t1 <- set_agd_arm(bcva.tb.pdr,
                          se=etdrs.mcfb.sem,
                          sample_size=N,
                          trt_ref="PRP",
-                         trt_class=Class)
+                         trt_class=Class2)
 
 NMA.time <- nma(NMA.t1,
                       trt_effects="random",
@@ -62,7 +62,7 @@ NMA.b1 <- set_agd_arm(filter(bcva.tb.pdr,!is.na(etdrs.base)),
                           se=etdrs.mcfb.sem,
                           sample_size=N,
                           trt_ref="PRP",
-                          trt_class=Class)
+                          trt_class=Class2)
 
 NMA.base <- nma(NMA.b1,
                      trt_effects="random",

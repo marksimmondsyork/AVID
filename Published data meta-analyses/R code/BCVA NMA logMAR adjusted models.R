@@ -23,7 +23,7 @@ NMA.t1 <- set_agd_arm(bcva.tb.pdr,
                          se=logMAR.mcfb.sem,
                          sample_size=N,
                          trt_ref="PRP",
-                         trt_class=Class)
+                         trt_class=Class2)
 
 NMA.time <- nma(NMA.t1,
                       trt_effects="random",
@@ -33,8 +33,7 @@ NMA.time <- nma(NMA.t1,
                       prior_reg=normal(scale=2),
                       center=F)
 
-ref.data <- data.frame(logMAR.base=mean(bcva.tb.pdr$logMAR.base,na.rm=T),
-                       Year=0)
+ref.data <- data.frame(logMAR.base=0.3,Year=0)
 
 NMA.time.res <- relative_effects(NMA.time,newdata=ref.data,all_contrasts=TRUE)
 NMA.time.ranks <- posterior_rank_probs(NMA.time,newdata=ref.data)
@@ -62,7 +61,7 @@ NMA.b1 <- set_agd_arm(filter(bcva.tb.pdr,!is.na(logMAR.base)),
                           se=logMAR.mcfb.sem,
                           sample_size=N,
                           trt_ref="PRP",
-                          trt_class=Class)
+                          trt_class=Class2)
 
 NMA.base <- nma(NMA.b1,
                      trt_effects="random",
